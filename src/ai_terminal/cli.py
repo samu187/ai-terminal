@@ -37,7 +37,7 @@ otherwise answer immediately. Do not include Markdown or decorative formatting i
 User request: """
 ZSHRC_BLOCK = r'''# ai-terminal autofill
 ai() {
-  local ai_result ai_message ai_command
+  local ai_result ai_command
   local -a ai_fields
   if [[ $# -eq 0 || "$1" == "init" || "$1" == "-h" || "$1" == "--help" ]]; then
     command ai "$@"
@@ -48,13 +48,10 @@ ai() {
   ai_fields=("${(@f)$(print -r -- "$ai_result" | python3 -c '
 import base64, json, sys
 result = json.load(sys.stdin)
-for field in ("message", "command"):
-    value = result.get(field) or ""
-    print(base64.b64encode(value.encode()).decode())
+value = result.get("command") or ""
+print(base64.b64encode(value.encode()).decode())
 ')}")
-  ai_message="$(print -rn -- "$ai_fields[1]" | base64 -D)"
-  ai_command="$(print -rn -- "$ai_fields[2]" | base64 -D)"
-  [[ -n "$ai_message" ]] && print -r -- "$ai_message"
+  ai_command="$(print -rn -- "$ai_fields[1]" | base64 -D)"
   [[ -n "$ai_command" ]] && print -z -- "$ai_command"
 }'''
 
