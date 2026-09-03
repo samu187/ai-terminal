@@ -1,6 +1,6 @@
 [project]
 name = "ai-terminal"
-version = "0.1.0"
+version = "0.1.1"
 description = "A safe, concise Codex terminal assistant"
 readme = "README.md"
 authors = [

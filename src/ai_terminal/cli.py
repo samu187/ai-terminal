@@ -143,7 +143,7 @@ def _stream_response(query: list[str]) -> dict[str, object]:
         bufsize=1,
     )
     try:
-        _send(process, {"id": 1, "method": "initialize", "params": {"clientInfo": {"name": "ai-terminal", "version": "0.1.0"}}})
+        _send(process, {"id": 1, "method": "initialize", "params": {"clientInfo": {"name": "ai-terminal", "version": "0.1.1"}}})
         initialized = _read_response(process, 1)
         if "error" in initialized:
             raise RuntimeError(str(initialized["error"]))
