@@ -24,8 +24,9 @@ It checks whether `~/.zshrc` has the optional autofill setup. If it does not,
 it prints clear instructions and the exact text to add. `ai` never changes
 `.zshrc` itself.
 
-The Zsh setup reads the JSON returned by `ai`, prints `message`, and places
-`command` at your prompt. You inspect the command and press Enter yourself.
+The answer streams into the terminal as it is generated. Once complete, the
+Zsh setup uses the final validated JSON to place `command` at your prompt. You
+inspect the command and press Enter yourself.
 
 ## Use
 
