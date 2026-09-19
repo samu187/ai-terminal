@@ -8,6 +8,8 @@ requests come without an explanation.
 
 ![ai-terminal demo](docs/demo.gif)
 
+![ai-terminal demo](docs/demo2.gif)
+
 One non-streaming request to OpenAI's GPT-5.4 mini per question. No agent loop,
 tool access, or automatic command execution.
 
