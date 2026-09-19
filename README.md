@@ -1,49 +1,65 @@
 # ai-terminal
 
-`ai` is a read-only Codex terminal assistant. It returns JSON with two fields:
-`message` for a short answer and `command` for an optional single-line Zsh
-command. It never runs that command.
+**Describe the task. Get the command. Hit Enter when you're ready.**
 
-## Install
+`ai` turns plain English into a Zsh command and places it at your prompt for
+review. Ask a technical question and get a short answer instead. Routine command
+requests come without an explanation.
 
-Codex must already be installed and authenticated.
+![ai-terminal demo](docs/demo.gif)
+
+One non-streaming request to OpenAI's GPT-5.4 mini per question. No agent loop,
+tool access, or automatic command execution.
+
+## Setup
+
+Requires Python 3.12+, [uv](https://docs.astral.sh/uv/), and an OpenAI API key.
+Autofill also requires Zsh and `python3` on your PATH.
+
+From the cloned repository:
 
 ```sh
 uv tool install .
 ```
 
-## Configure Zsh autofill
+Export your key in the shell where you use `ai`:
 
-Run this after installation:
+```sh
+export OPENAI_API_KEY="your-api-key"
+```
+
+For persistence, set it in your private shell configuration or load it through
+your secret manager. The installed CLI inherits this environment variable.
+
+To enable prompt autofill:
 
 ```sh
 ai init
 ```
 
-It checks whether `~/.zshrc` has the optional autofill setup. If it does not,
-it prints clear instructions and the exact text to add. `ai` never changes
-`.zshrc` itself.
-
-The answer streams into the terminal as it is generated. Once complete, the
-Zsh setup uses the final validated JSON to place `command` at your prompt. You
-inspect the command and press Enter yourself.
-
-## Use
+Copy the printed function into `~/.zshrc`
 
 ```sh
+ai show uncommitted git changes
 ai ask what is the difference between TCP and UDP
-ai ask how do I see uncommitted Git edits
 ```
 
-`ask` is optional, so this is identical:
+`ask` is optional. Suggested commands are placed at your prompt; review them
+before pressing Enter. Without the shell function, the CLI prints JSON with
+`message` and `command` fields. Any answer text is also printed to stderr.
 
-```sh
-ai how do I see uncommitted Git edits
+Requests use your OpenAI API account and incur API charges. Only your question
+is sent as user input; the CLI does not read your project or shell history.
+
+
+## Project Structure
+
+```text
+src/ai_terminal/
+├── __init__.py
+└── cli.py          # CLI, API request, response validation, and Zsh setup
+docs/
+└── demo.gif        # Terminal walkthrough (add your recording here)
+pyproject.toml      # Package metadata and dependencies
+uv.lock            # Locked dependency versions
 ```
-
-Before Zsh autofill is configured, `ai ask` prints the same setup instructions
-as `ai init` instead of making a Codex request.
-
-`ai` uses `gpt-5.6-luna`, an ephemeral session, and Codex's `read-only`
-sandbox. Its prompt prohibits local terminal, filesystem, Git, and environment
-tools; it allows web search only when fresh external information is needed.

@@ -1,13 +1,14 @@
 [project]
 name = "ai-terminal"
 version = "0.1.2"
-description = "A safe, concise Codex terminal assistant"
+description = "Plain English to terminal commands with the OpenAI API"
 readme = "README.md"
 authors = [
     { name = "samu187", email = "samuel-alciati@live.it" }
 ]
 requires-python = ">=3.12"
 dependencies = [
+    "openai>=2,<3",
     "typer>=0.17,<1",
 ]
 
