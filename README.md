@@ -1,17 +1,20 @@
 # ai-terminal
 
-**Describe the task. Get the command. Hit Enter when you're ready.**
+**English in. Terminal command ready. Press Enter to run.**
 
-`ai` turns plain English into a Zsh command and places it at your prompt for
-review. Ask a technical question and get a short answer instead. Routine command
-requests come without an explanation.
+`ai` translates plain English into terminal commands and prefills your Zsh prompt.
+Review or edit the suggested command, then press **Enter** to confirm and run it.
+Ask a technical question and get a short answer instead. Routine command requests
+come without an explanation.
 
 ![ai-terminal demo](docs/demo.gif)
 
 ![ai-terminal demo](docs/demo2.gif)
 
-One non-streaming request to OpenAI's GPT-5.4 mini per question. No agent loop,
-tool access, or automatic command execution.
+Each question makes one non-streaming OpenAI API request using
+[GPT-5.4 mini](https://developers.openai.com/api/docs/models/gpt-5.4-mini),
+which keeps costs very low for short queries and command responses.
+No agent loop, tool access, or automatic command execution.
 
 ## Setup
 
@@ -50,7 +53,7 @@ ai ask what is the difference between TCP and UDP
 before pressing Enter. Without the shell function, the CLI prints JSON with
 `message` and `command` fields. Any answer text is also printed to stderr.
 
-Requests use your OpenAI API account and incur API charges. Only your question
+Requests are billed to your OpenAI API account at GPT-5.4 mini rates. Only your question
 is sent as user input; the CLI does not read your project or shell history.
 
 
