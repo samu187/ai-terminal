@@ -13,7 +13,7 @@ from openai import OpenAI, OpenAIError
 
 
 app = typer.Typer(add_completion=False, no_args_is_help=True)
-MODEL = "gpt-5.4-mini"
+MODEL = "gpt-6-luna"
 OUTPUT_SCHEMA = {
     "type": "object",
     "properties": {
